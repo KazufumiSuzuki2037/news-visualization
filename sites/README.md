@@ -18,7 +18,7 @@ node scripts/sites-preview.mjs
 
 ## ホスト先の構成
 
-- `.openai/hosting.json`はR2の`BUCKET`を宣言します。実際の登録で返されたIDだけを`project_id`へ保存します。同じ公式応答で確認したIDとオリジンを`sites/registered-site.json`の`projectId`・`origin`にも記録します。現在は未登録のため、このファイルは存在しません。
+- `.openai/hosting.json`はR2の`BUCKET`を宣言します。公式の登録結果を`project_id`へ保存済みです。同じ応答で確認したIDとオリジンを`sites/registered-site.json`の`projectId`・`origin`にも保存しています。
 - `dist/server/index.js`が配備用のESモジュールです。画面のHTML・CSS・JavaScriptと初回データを含みます。ソース全体や`tmp/`を配信しません。
 - ニュースと設定はR2の`state.json`に保存します。保存済みデータを初回データより優先するため、画面を再配備してもデータは戻りません。
 - 既知用語はSitesの利用者ID別に保存します。
@@ -42,4 +42,10 @@ Siteの画面で収集設定を変えた場合は、その設定をローカル�
 
 ## 現在の登録状況
 
-2026-11-01、このセッションのSites登録ツールは「not available to the model」を返しました。Siteの登録、URLの発行、配備、定期実行の登録は未実施です。ツールが利用できる環境で登録し、返されたIDを保存してから公式Sites手順でソースの同期・版保存・非公開配備・ホスト先確認を続けてください。
+2026-11-01、所有者限定Siteとして登録・配備済みです。
+
+- project_id: `appgprj_6ae6b670053c8191a5fb9224535684b7`
+- origin: https://newsvisualization.kazufumi123.chatgpt.site
+- GET/HEADはSitesの認可境界に任せ、Origin・Sec-Fetch-Siteの拒否は更新系メソッドに適用します。
+- Pythonの再計算照合は浮動小数点だけ微小な丸め差を許容し、構造・整数・文字列は完全一致を要求します。ニュース内容と採点式は変更していません。
+- 定期実行は登録していません。

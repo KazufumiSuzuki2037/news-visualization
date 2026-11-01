@@ -99,7 +99,10 @@ export function createApp(initial) {
     const json = (status, value) => new Response(JSON.stringify(value), {status, headers:{...headers,'Content-Type':'application/json; charset=utf-8'}});
     try {
       const url = new URL(request.url), path = url.pathname;
-      if (request.headers.get('Origin') && request.headers.get('Origin') !== url.origin || request.headers.get('Sec-Fetch-Site') === 'cross-site') return json(403,{error:'INVALID_ORIGIN'});
+      // Cross-site links and OAuth redirects are valid read navigations. Sites
+      // dispatch still authenticates them. CSRF checks apply to writes only.
+      const mutation = !['GET','HEAD'].includes(request.method);
+      if (mutation && (request.headers.get('Origin') && request.headers.get('Origin') !== url.origin || request.headers.get('Sec-Fetch-Site') === 'cross-site')) return json(403,{error:'INVALID_ORIGIN'});
       if (request.method === 'GET' && Object.hasOwn(initial.assets,path)) return new Response(initial.assets[path].body,{headers:{...headers,'Content-Type':initial.assets[path].type}});
       if (!env.BUCKET) return json(503,{error:'SITES_STORAGE_UNAVAILABLE'});
       const stored = await env.BUCKET.get('state.json');

@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {readFile,mkdir,mkdtemp} from 'node:fs/promises';
+import {readFile,writeFile,mkdir,mkdtemp} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import {resolve} from 'node:path';
 import {spawnSync} from 'node:child_process';
@@ -65,6 +65,7 @@ test('preferences are separated by platform user identity',async()=>{
 test('unsafe origins, malformed bodies, oversized input and unavailable storage fail closed',async()=>{
   const f=await fixture();
   assert.equal((await f.put('/api/preferences',{knownTermIds:[]},{Origin:'https://evil.test'})).status,403);
+  assert.equal((await f.app.fetch(new Request('https://preview.test/',{headers:{'Sec-Fetch-Site':'cross-site'}}),f.env)).status,200);
   assert.equal((await f.app.fetch(new Request('https://preview.test/api/state'),{})).status,503);
   assert.equal((await f.get('/api/state?period=invalid')).status,422);
   assert.equal((await f.get('/config/settings.json')).status,404);
@@ -76,10 +77,43 @@ test('settings reject private URLs, invalid limits and disabled fields',()=>{
     const settings=copy(initial.settings);change(settings);assert.throws(()=>validateSettings(settings,initial));
   }
 });
-test('uploader fails without registration and never echoes malformed credential input',()=>{
+test('uploader fails without registration and never echoes malformed credential input',async()=>{
+  await mkdir(resolve(root,'tmp'),{recursive:true});
+  const isolated=await mkdtemp(resolve(root,'tmp/sites-unregistered-'));
+  await mkdir(resolve(isolated,'scripts'));
+  const uploader=resolve(isolated,'scripts/upload-sites-news.mjs');
+  await writeFile(uploader,await readFile(resolve(root,'scripts/upload-sites-news.mjs')));
   const token='DO_NOT_LOG_TEST_CREDENTIAL';
   for(const input of ['{"serviceToken":"'+token+'"',JSON.stringify({serviceToken:token,url:'https://untrusted.example/'})]) {
-    const result=spawnSync(process.execPath,['scripts/upload-sites-news.mjs'],{cwd:root,encoding:'utf8',input});
+    const result=spawnSync(process.execPath,[uploader],{cwd:isolated,encoding:'utf8',input});
     assert.equal(result.status,1);assert.equal((result.stdout+result.stderr).includes(token),false);
   }
+});
+
+test('cross-site reads pass while cross-site mutations are rejected',async()=>{
+  const f=await fixture();
+  for(const headers of [{Origin:'https://evil.test'},{'Sec-Fetch-Site':'cross-site'},{Origin:'https://evil.test','Sec-Fetch-Site':'cross-site'}]) {
+    for(const path of ['/','/api/state','/data/news.json']) {
+      assert.equal((await f.app.fetch(new Request('https://preview.test'+path,{headers}),f.env)).status,200);
+    }
+    const head=await f.app.fetch(new Request('https://preview.test/',{method:'HEAD',headers}),f.env);
+    assert.notEqual(head.status,403);
+    const denied=await f.put('/api/preferences',{knownTermIds:[]},headers);
+    assert.equal(denied.status,403);assert.deepEqual(await denied.json(),{error:'INVALID_ORIGIN'});
+  }
+});
+test('prepared-news comparison tolerates float rounding but rejects meaningful changes',()=>{
+  const program=`import runpy, math
+m=runpy.run_path('scripts/check_sites_news.py'); eq=m['values_match']
+assert eq(0.3608488067145302,0.3608488067145301)
+assert not eq(0.36,0.360001)
+assert not eq(1,True)
+assert not eq(1,1.0)
+assert not eq(float('nan'),float('nan'))
+assert not eq(float('inf'),float('inf'))
+assert not eq({'score':1},{'score':2})
+assert not eq({'a':[]},{'b':[]})
+assert not eq([1],[1,2])`;
+  const r=spawnSync('python',['-B','-c',program],{cwd:root,encoding:'utf8',env:{...process.env,PYTHONPYCACHEPREFIX:resolve(root,'tmp/pycache')}});
+  assert.equal(r.status,0,r.stderr);
 });
