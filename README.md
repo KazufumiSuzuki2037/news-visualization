@@ -84,3 +84,9 @@ PCを使わずに実行したい場合は、クラウド側のソース・Skill�
 ## 開発・保守
 
 [ポート変更・画面編集・テスト](docs/development.md) ／ [ニュース調査Skill](.codex/skills/nv-news-research/SKILL.md)
+
+## ライセンス
+
+[MITライセンス](LICENSE)です。著作権・ライセンス表示を残せば、複製・改変・再配布・商用利用ができます。
+
+同梱ライブラリは[第三者ライセンス表記](THIRD_PARTY_NOTICES.txt)、リンク先の記事・ニュース素材は各権利者の条件に従います。
