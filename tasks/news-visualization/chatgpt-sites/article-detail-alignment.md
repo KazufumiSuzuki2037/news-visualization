@@ -1,6 +1,6 @@
 # 記事詳細を参照実装へ合わせる
 
-Ownerの指示: C:/dev/AmanePjの現行記事詳細を確認し、NewsVisualizationの記事詳細・詳細欄を合わせる。
+Ownerの指示: 参照実装の現行記事詳細を確認し、NewsVisualizationの記事詳細・詳細欄を合わせる。
 
 - Context: 参照先のfrontend/src/NewsDetail.tsx、AppViews.tsxのDetailView、helpers.tsのdiscussionMarkdown、style.cssの詳細幅。変更対象はNewsVisualizationだけ。
 - 確認結果: 参照実装には記事ごとの配点表・観測充足率はない。こちらで追加した表示だった。
