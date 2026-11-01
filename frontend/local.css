@@ -15,3 +15,5 @@
 .settingsPage .trackedSites>.card{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:16px}
 .settingsPage .trackedSites>.card>button{align-self:center;justify-self:end}
 @media(max-width:720px){.settingsPage .siteForm.card,.settingsPage .trackedSites>.card{grid-template-columns:minmax(0,1fr);align-items:stretch}.settingsPage .trackedSites>.card>button{justify-self:start}}
+@media(min-width:721px){.overlay>.detail{width:50%}}
+@media(max-width:720px){.overlay>.detail{padding:25px}}

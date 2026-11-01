@@ -1,7 +1,6 @@
 import {useState} from 'react';
 import {arr,safeExternalUrl,text,time} from './helpers.ts';
 import type {Data} from './helpers.ts';
-import {AttentionDetails} from './Attention.tsx';
 
 const statusLabel:Record<string,string>={confirmed:'確認済み',hypothesis:'仮説',unverified:'未確認'};
 const applicationLabel:Record<string,string>={work:'仕事',development:'開発',conversation:'会話'};
@@ -56,7 +55,6 @@ export function NewsDetail({
    {reaction?.observedAt&&<>（取得：{time(reaction.observedAt)}）</>}
    {reactionSource&&safeExternalUrl(reactionSource.url)&&<>　対象：<a href={safeExternalUrl(reactionSource.url)} target="_blank" rel="noopener noreferrer">{text(reactionSource.title,reactionSource.url)}</a></>}
   </p>
-  <AttentionDetails topic={topic}/>
   {details?.explanation&&<section className="detailSection"><h3>記事の要約</h3><p>{details.explanation}</p></section>}
   {cautions.length>0&&<section className="detailSection"><h3>注意ポイント</h3>
    <ul>{cautions.map((caution:string,index:number)=><li key={index}>{caution}</li>)}</ul>

@@ -22,3 +22,12 @@ export function bubbleDiameter(score:unknown,minRadius:number,maxRadius:number,e
  const n=typeof score==='number'&&Number.isFinite(score)?Math.max(0,Math.min(100,score)):0;
  return 2*Math.sqrt(minRadius*minRadius+(n/100)**exponent*(maxRadius*maxRadius-minRadius*minRadius));
 }
+export function discussionMarkdown(item:Data):string{
+ const sources=arr(item.sources).map(source=>{const url=safeExternalUrl(source.url);return url?'- '+str(source.title,url)+': '+url:''}).filter(Boolean);
+ const views=arr(item.perspectives).map(view=>'- '+str(view.title||view.viewpoint,'視点')+': '+str(view.summary||view.description,'未確認'));
+ const hypotheses=arr(item.counterHypotheses||item.hypotheses).map(entry=>'- '+str(entry.summary||entry.description||entry,'未確認'));
+ const unknowns=arr(item.unknowns||item.unverified).map(entry=>'- '+str(entry.summary||entry.description||entry,'不明'));
+ return ['# '+str(item.title,'ニュース'),'## 要約',str(item.summary,'不明'),'## 事実と根拠',str(item.facts,'未確認'),
+  '## 異なる視点',...views,'## 対立仮説',...hypotheses,'## 未確認事項',...unknowns,
+  '## 検討論点','- この変化は誰にどのような影響を与えるか。','## 出典',...sources].join('\n');
+}

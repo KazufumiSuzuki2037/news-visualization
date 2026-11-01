@@ -4,7 +4,7 @@ import {createRoot} from 'react-dom/client';
 import {TopicBubbles} from './TopicBubbles.tsx';
 import {NewsDetail,NewsSources} from './NewsDetail.tsx';
 import {AttentionGuide} from './Attention.tsx';
-import {arr,safeExternalUrl,text,time,updatedTime} from './helpers.ts';
+import {arr,discussionMarkdown,safeExternalUrl,text,time,updatedTime} from './helpers.ts';
 import type {Data} from './helpers.ts';
 import './style.css';
 import './local.css';
@@ -67,11 +67,16 @@ const Help=IllustratedHelp;
 
 function Detail({topic,state,onClose,onKnown,busy}:{topic:Data;state:Data;onClose:()=>void;onKnown:(id:string,known:boolean)=>void;busy:boolean}){
  const dialog=useRef<HTMLElement>(null),[notice,setNotice]=useState('');
+ const unknowns=arr(topic.unknowns||topic.unverified||arr(topic.perspectives).filter(entry=>entry.title==='未確認事項'));
  useEffect(()=>{const previous=document.activeElement as HTMLElement;const box=dialog.current!;box.focus();function key(event:KeyboardEvent){if(event.key==='Escape')onClose();if(event.key==='Tab'){const all=[...box.querySelectorAll<HTMLElement>('button:not(:disabled),a[href],input,select,textarea,[tabindex="0"]')];if(!all.length){event.preventDefault();return}const first=all[0],last=all[all.length-1];if(event.shiftKey&&(document.activeElement===first||document.activeElement===box)){last.focus();event.preventDefault()}else if(!event.shiftKey&&(document.activeElement===last||document.activeElement===box)){first.focus();event.preventDefault()}}}document.addEventListener('keydown',key);const overflow=document.body.style.overflow;document.body.style.overflow='hidden';return()=>{document.removeEventListener('keydown',key);document.body.style.overflow=overflow;previous?.focus()}},[]);
  return <div className="overlay" onClick={onClose}><aside className="detail" role="dialog" aria-modal="true" aria-label="ニュース詳細" ref={dialog} tabIndex={-1} onClick={event=>event.stopPropagation()}><button className="close" onClick={onClose}>閉じる</button>
  <NewsDetail topic={topic} knownTermIds={state.preferences.knownTermIds} preferenceReady={true} preferenceBusy={busy} tenants={[]} tenant="local" onTenant={()=>{}} onKnownTerm={onKnown}/>
- <NewsSources topic={topic}/><p>{topic.scoreVersion==='8'?`観測済み配点：${Math.round(topic.dataCompleteness*10000)/100}／${Math.round(arr(topic.attentionBreakdown).reduce((sum,row)=>sum+Number(row.weight),0)*100)}点`:`観測充足率：${Math.round(topic.dataCompleteness*100)}％`} ／ {topic.evaluationStatus==='insufficient_data'?'評価不足':topic.evaluationStatus==='evaluated'?'評価済み':'一部指標が欠測'}</p>
- <button onClick={async()=>{try{await navigator.clipboard.writeText(['# '+topic.title,topic.summary,topic.details.explanation,...topic.sources.filter((s:Data)=>s.title).map((s:Data)=>s.title+'\n'+s.url)].join('\n\n'));setNotice('議論用のテキストをコピーしました。')}catch{setNotice('コピーできませんでした。記事の本文を選択してコピーしてください。')}}}>議論用にコピー</button>{notice&&<p role="status">{notice}</p>}
+ <button onClick={async()=>{try{await navigator.clipboard.writeText(discussionMarkdown(topic));setNotice('議論用Markdownをコピーしました。')}catch{setNotice('コピーできませんでした。記事の本文を選択してコピーしてください。')}}}>議論用Markdownをコピー</button>{notice&&<p role="status">{notice}</p>}
+ {arr(topic.perspectives).length>0&&<><h3>異なる視点</h3>{arr(topic.perspectives).map((entry,index)=><div className="comparison" key={index}><b>{text(entry.title||entry.viewpoint,'視点')}</b><p>{text(entry.summary||entry.description||entry.text)}</p></div>)}</>}
+ {arr(topic.counterHypotheses||topic.hypotheses).length>0&&<><h3>対立仮説</h3>{arr(topic.counterHypotheses||topic.hypotheses).map((entry,index)=><p className="comparison" key={index}>{text(entry.summary||entry.description||entry)}</p>)}</>}
+ {unknowns.length>0&&<><h3>未確認事項</h3>{unknowns.map((entry,index)=><p className="comparison" key={index}>{text(entry.summary||entry.description||entry)}</p>)}</>}
+ <a className="chatLink" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">ChatGPTを開く</a>
+ <NewsSources topic={topic}/>
  </aside></div>;
 }
 
