@@ -1,0 +1,17 @@
+.newsToolbar .brand{display:flex;min-width:44px;text-decoration:none}.newsToolbar .brand b{display:block;font-size:22px;color:#4285f4;letter-spacing:.03em}
+.newsToolbar .headerActions{display:flex;margin-left:auto;gap:6px;align-items:center}.newsToolbar .headerLink{font-size:13px;text-decoration:none;padding:8px;color:#5f6368;white-space:nowrap}
+.newsToolbar .newsUpdatedAt{margin:0 0 0 auto;padding:0;color:#5f6368;font-size:12px;line-height:1.5;white-space:nowrap;font-variant-numeric:tabular-nums}.newsToolbar .headerActions{margin-left:0}.newsUpdatedAt time{white-space:nowrap}
+.newsStatus.researchHeld{position:static;margin:0 0 12px;padding:12px;background:#fff8e1;border:1px solid #f4d37b;border-radius:6px;color:#654b00;font-size:13px}
+.newsMain>.newsStatus{position:static;top:auto;right:auto;z-index:auto;margin:0 0 12px;font-size:13px}
+.attentionTableWrap{overflow-x:auto}.attentionTable{width:100%;border-collapse:collapse;font-size:12px;line-height:1.7}.attentionTable th,.attentionTable td{padding:8px;text-align:left;vertical-align:top;border-bottom:1px solid #dadce0}.attentionTable th{min-width:76px}.attentionTable td div{margin:3px 0;overflow-wrap:anywhere}
+.localMain{max-width:1000px;margin:0 auto;padding:24px}.settingsPage label{display:flex;flex-direction:column;gap:8px}.settingsPage label:has(input[type=checkbox]){flex-direction:row;align-items:center}
+.settingsPage input:not([type=checkbox]),.settingsPage textarea{width:100%;padding:10px;border:1px solid #dadce0;border-radius:6px;font:inherit}.settingsPage button{padding:9px 14px;border:1px solid #dadce0;background:white;color:#1a73e8;border-radius:6px}.settingsPage .primary{background:#1a73e8;color:white}.settingsPage .card{display:flex;flex-direction:column;gap:14px}.settingsPage .settingsActions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}.settingsTabs{display:flex;gap:8px}.settingsTabs [aria-selected=true]{color:#1a73e8;border-bottom:2px solid #1a73e8}.helpPage{line-height:1.9}.helpPage h2{margin-top:30px}.newsInformation{max-width:1000px;margin:16px auto;line-height:1.8}.newsInformation dd{overflow-wrap:anywhere}.newsInformation h2{margin-top:26px}.newsStatus,.error{padding:12px;line-height:1.7}.error{background:#fce8e6;color:#b3261e}.detail .close{position:sticky;top:0;float:right;z-index:1;background:white}.detail:focus{outline:none}
+@media(max-width:600px){.newsToolbar{height:auto;min-height:56px;flex-wrap:wrap;padding:8px;gap:4px}.newsToolbar .brand{min-width:32px}.newsToolbar .brand b{font-size:20px}.newsToolbar .headerActions{gap:0}.newsToolbar .headerLink{padding:8px 5px;font-size:12px}.newsToolbar button{padding:8px 6px;font-size:12px}.localMain{padding:16px}.detail{padding:20px}.newsInformation{margin:0 8px}}
+.settingsPage .card{align-items:stretch}
+.settingsPage .card>button{align-self:flex-start}
+.settingsPage .siteForm>label{flex:none;width:100%}
+.settingsPage .siteForm.card{display:grid;grid-template-columns:minmax(200px,.8fr) minmax(0,1.6fr) auto;align-items:end;gap:16px}
+.settingsPage .siteForm.card>button{align-self:end;justify-self:start}
+.settingsPage .trackedSites>.card{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:16px}
+.settingsPage .trackedSites>.card>button{align-self:center;justify-self:end}
+@media(max-width:720px){.settingsPage .siteForm.card,.settingsPage .trackedSites>.card{grid-template-columns:minmax(0,1fr);align-items:stretch}.settingsPage .trackedSites>.card>button{justify-self:start}}

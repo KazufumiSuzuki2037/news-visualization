@@ -1,0 +1,59 @@
+{
+  "version": "3",
+  "languages": [
+    "ja"
+  ],
+  "regions": [
+    "JP",
+    "overseas"
+  ],
+  "sourcePriority": [
+    "primary",
+    "official",
+    "independent_reporting",
+    "analysis"
+  ],
+  "candidateMultiplier": 2,
+  "minimumCandidatesPerField": 8,
+  "searchQueries": {
+    "AI・技術": {
+      "ja": [
+        "AI 半導体 ソフトウェア 研究 発表",
+        "科学 技術 オープンソース"
+      ]
+    },
+    "セキュリティ": {
+      "ja": [
+        "脆弱性 サイバー攻撃 情報漏えい",
+        "セキュリティ 注意喚起 修正"
+      ]
+    },
+    "経済": {
+      "ja": [
+        "経済 金融 金利 物価 雇用",
+        "貿易 エネルギー 企業 投資"
+      ]
+    },
+    "社会情勢": {
+      "ja": [
+        "国際情勢 政策 制度 災害 人口",
+        "社会 課題 政治 公共"
+      ]
+    }
+  },
+  "http": {
+    "workers": 8,
+    "timeoutSeconds": 20,
+    "maxResponseBytes": 4000000
+  },
+  "discovery": {
+    "url": "https://news.google.com/rss/search",
+    "locales": {
+      "ja": {
+        "hl": "ja",
+        "gl": "JP",
+        "ceid": "JP:ja"
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "scoreVersion": "9",
+  "normalizationVersion": "3",
+  "weights": {
+    "reporting": 0.6,
+    "reaction": 0.1,
+    "growth": 0.1,
+    "google": 0.12,
+    "wikipedia": 0,
+    "yahoo": 0.04,
+    "livedoor": 0.04,
+    "gdelt": 0
+  },
+  "reportingHours": 72,
+  "publisherBaseline": 20,
+  "minIndependentPublishers": 2,
+  "growthMinPublishers": 5,
+  "growthFullRatio": 4,
+  "minDataCompleteness": 0.55,
+  "displayThreshold": 25,
+  "reactionCountBaseline": 500,
+  "googleTrafficBaseline": 100000,
+  "wikipediaBaselineFloor": 100,
+  "wikipediaFullRatio": 4,
+  "wikipediaMaxLagDays": 3,
+  "maxObservationAgeHours": 24,
+  "gdeltFullShare": 0.01
+}

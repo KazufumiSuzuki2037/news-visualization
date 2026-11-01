@@ -1,0 +1,93 @@
+{
+  "fields": [
+    {
+      "fieldId": "ai-tech",
+      "name": "IT／AI",
+      "instructions": "AIとITを、実際に動くシステムとして成立させるための設計・実装・運用情報を収集する。\n\n重点対象は次のとおり。\n・AIエージェントの責務分離、マルチエージェント、実行基盤、Sandbox、MCP、ツール探索、認証、権限委譲。\n・Task単位の信頼境界と最小権限、一時的な権限付与と失効、認証情報の隔離、侵害時の影響範囲の限定。\n・LLMによる探索・候補生成と、決定的な認可・検証・実行制御の責務分離。OPA、Cedar、DMN、Policy Engine、Workflow Engineなど。\n・Prompt Injection、Agent Hijacking、Sandbox Escape、Context・Memory汚染、認証情報窃取、MCP・Tool・Plugin・Skillの供給網攻撃、自律攻撃。\n・Contextの段階取得、必要十分な配布、圧縮、隔離、出所と信頼性、Memoryの保存・統合・失効・削除、キャッシュとコスト。\n・長時間タスクのCheckpoint、Retry、Replay、Durable Execution、Model Routing、Cascade、Critique、Ensemble。\n・AI生成コードの理解と品質保証。独立したReviewer・Test・Oracle、E2E、Property Testing、Fuzzing、静的解析、形式検証、設計上の不変条件、CI/CD Gate。\n・AI評価の平均値だけでなく、pass@k、pass^k、実行間のばらつき、失敗分布、最悪ケース、誤検知・見逃し、評価者のBias、本番での成果。\n・AWSのIAM、Organizations、Control Tower、Bedrock、AgentCore、ネットワーク、監視、ガバナンス、コスト最適化、構成を簡素化するマネージド機能。\n・実際の障害・事故・復旧事例。Retry Storm、容量不足、Fail-open、Control Plane障害、キャッシュ不整合、Failure Domain、変更不能・オフライン・別リージョンのバックアップ、復元試験、RPO・RTO。\n\nAIに禁止事項を守らせる工夫だけでなく、AIが誤っても危険な操作が成立しない構造を重視する。Tool Callを提案として扱い、実行基盤で許可・拒否する設計を優先する。\n\n実測、比較条件、失敗原因、境界条件があり、他のシステムへ応用できる記事を優先する。障害事例では、何が壊れ、なぜ連鎖し、どこで止められたかを捉える。製品紹介だけの記事、既知の原則の言い換え、同じ安全論の繰り返しは優先度を下げる。\n\nこの関心は収集対象の選定に用い、個人的な好みを世間の話題度スコアへ加算しない。",
+      "active": true
+    },
+    {
+      "fieldId": "8018513fc0da4dc4967026651c6cc44b",
+      "name": "その他技術",
+      "instructions": "科学・医療・生命科学、物理・数学、ロボティクス、およびIT／AI以外も含めて技術の前提を変える研究・設計を収集する。AIを使っていない技術も対象とする。\n\n重点対象は次のとおり。\n・AI創薬、タンパク質設計、mRNA・ワクチン、老化・若返り、生物学的年齢、ゲノム、CRISPR、Bioinformatics、医療画像診断。\n・科学仮説の生成、実験計画の最適化、AIと実験室を結ぶ反復的な検証。AIが探索範囲を絞り、実験能力を広げる取り組み。\n・理論物理、数学の難問、量子計算・量子シミュレーション、科学計算、高次ループ計算など、専門研究の手法や到達範囲を変える進展。\n・Robotics、Physical AI、Edge AI、Cloud Robotics、Sensor・Actuator、器用な操作、生体融合ロボット。製造、価格、電力、Battery、遅延などの物理的制約。\n・大規模な分散システム、Storage、Database、Cache、Control Plane・Data Plane、Serverless、CDN、海底ケーブル、大規模Git基盤、大量のTenantやDBを扱う設計。\n・WebとInternetの前提を変えるプロトコル。HTTP QUERY、WebMCP、Agent向けInterface、Agent Name Service、x402、決済、新しい認証方式、耐量子Web PKI、証明書の新方式。\n・AIに限定しない暗号・Identity・信頼基盤。OAuth・OIDC、SSO、SPIFFE・SPIRE、Workload Identity、短命な認証情報、PKI、供給網の安全性、出所証明、Artifact署名、権限失効。\n・AIに依存しないSoftware Engineering。性能設計、DB Optimizer、Testing、CI/CD、Migration、Refactoring、監視、Technical Debt、要件定義、ヒアリング、本番障害から得られた知見。\n・Windows、Spatial Computing、VR・AR、Wearable、Smartwatch、Generative UI、新しいHuman-Computer Interface。単なる新製品より、体験や使い方、設計思想が変わるもの。\n\n科学・医療では、計算上の結果、実験、動物試験、人での検証、実用化を区別し、成果の段階と限界を保つ。ロボティクスではモデル精度だけでなく、現実に製造・運用できる条件を見る。\n\n常識を更新する発見、桁違いの規模を可能にする設計変更、仕組みが分かる解説、実測と失敗を含む検証を優先する。知的好奇心を刺激し、未来の可能性を感じさせる話題も拾うが、期待と確認済みの成果を混同しない。\n\nAIエージェントやAWSの実装・運用が主題なら「IT／AI」、科学・物理世界への応用や基盤技術そのものの進展が主題ならこの分野へ分類し、同じ出来事を重複登録しない。",
+      "active": true
+    },
+    {
+      "fieldId": "security",
+      "name": "セキュリティ",
+      "instructions": "脆弱性、不正アクセス、情報漏えい、攻撃手法、防御策、認証・認可の変化を集める。影響対象、確認された被害、修正や対策を確認し、可能性と確定事実を分ける。安全な技術検証も対象にする。",
+      "active": true
+    },
+    {
+      "fieldId": "economy",
+      "name": "経済",
+      "instructions": "金利、物価、雇用、為替、貿易、エネルギー、企業投資、産業構造や消費の変化を集める。日本と海外を扱い、統計の期間・比較条件と、予測・実績を区別する。投資助言や個人向け推薦に置き換えない。",
+      "active": true
+    },
+    {
+      "fieldId": "society",
+      "name": "社会情勢",
+      "instructions": "政治、政策、制度、国際情勢、人口、公共サービス、災害と復旧など、社会の仕組みや生活に関わる変化を集める。経緯と確認できた影響を重視し、見通しは事実と分ける。芸能ゴシップを主対象にしない。",
+      "active": true
+    }
+  ],
+  "limits": {
+    "maxFields": 50,
+    "maxNameLength": 100,
+    "maxInstructionsLength": 4000,
+    "maxQueriesPerField": 8,
+    "maxQueryLength": 500
+  },
+  "version": 4,
+  "sites": [
+    {
+      "siteId": "qiita",
+      "name": "Qiita",
+      "url": "https://qiita.com/",
+      "active": true
+    },
+    {
+      "siteId": "developersio",
+      "name": "DevelopersIO",
+      "url": "https://dev.classmethod.jp/",
+      "active": true
+    },
+    {
+      "siteId": "publickey",
+      "name": "Publickey",
+      "url": "https://www.publickey1.jp/",
+      "active": true
+    },
+    {
+      "siteId": "techfeed",
+      "name": "TechFeed",
+      "url": "https://techfeed.io/",
+      "active": true
+    },
+    {
+      "siteId": "hatena-bookmark",
+      "name": "はてなブックマーク",
+      "url": "https://b.hatena.ne.jp/",
+      "active": true
+    },
+    {
+      "siteId": "zenn",
+      "name": "Zenn",
+      "url": "https://zenn.dev/",
+      "active": true
+    },
+    {
+      "siteId": "atmarkit",
+      "name": "@IT",
+      "url": "https://atmarkit.itmedia.co.jp/",
+      "active": true
+    }
+  ],
+  "languages": [
+    "ja"
+  ],
+  "displaySettings": {
+    "zoomPercent": 100,
+    "minTopicsPerField": 5
+  }
+}
