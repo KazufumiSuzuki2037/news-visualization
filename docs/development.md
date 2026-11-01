@@ -1,5 +1,14 @@
 # 開発・保守
 
+## ポートを変える
+
+```powershell
+cd C:\dev\news-visualization
+.\start.ps1 -Port 8770
+```
+
+[画面](http://127.0.0.1:8770/) ／ [使い方](http://127.0.0.1:8770/#help) ／ [設定](http://127.0.0.1:8770/#settings)を開きます。終了は`Ctrl+C`です。
+
 ## 画面の編集
 
 1. `frontend/`を編集する。
