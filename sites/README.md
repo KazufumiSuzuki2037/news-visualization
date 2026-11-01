@@ -10,7 +10,7 @@ node --test tests/sites.test.mjs
 node scripts/sites-preview.mjs
 ```
 
-画面ソースを変更した場合は、先に既存のREADMEの「画面の編集」に従って`node scripts/build.mjs`で`web/`を更新してください。`build-sites.mjs`は生成済み画面を取り込む処理で、画面ソースのビルドは行いません。
+画面ソースを変更した場合は、先に[画面の編集](../docs/development.md#画面の編集)に従って`node scripts/build.mjs`で`web/`を更新してください。`build-sites.mjs`は生成済み画面を取り込む処理で、画面ソースのビルドは行いません。
 
 確認先は <http://127.0.0.1:8768/> です。既存のローカル版は8767のままです。
 
