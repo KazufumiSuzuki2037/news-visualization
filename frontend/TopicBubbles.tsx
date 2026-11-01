@@ -21,7 +21,8 @@ function Cluster({label,topics,index,onSelect,displayConfig,color,layoutGroups,h
   const visible=pages[current]||[];
   const fitted=fittedRadii(width,displayConfig,layoutGroups,heightBudget);
   const layout=packTopics(visible,width,{...displayConfig,...fitted});
-  const zoom=(displayConfig.zoomPercent??100)/100;
+  // 100% uses the former 200% size; 50% restores the former 100% size.
+  const zoom=(displayConfig.zoomPercent??100)/50;
   const leftEdge=Math.min(...layout.circles.map(c=>c.x-c.radius));
   const rightEdge=Math.max(...layout.circles.map(c=>c.x+c.radius));
   const canvasWidth=zoom>1?Math.max(width,(rightEdge-leftEdge)*zoom+2*displayConfig.parentPadding):width;

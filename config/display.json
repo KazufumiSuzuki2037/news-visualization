@@ -35,6 +35,8 @@
   "zoomPercent": 100,
   "settingsOptions": {
     "zoomPercent": [
+      50,
+      75,
       100,
       125,
       150,
