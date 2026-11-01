@@ -3,7 +3,7 @@
 ニュースの可視化だけを扱うローカルアプリ。画面は`web/`、編集元は`frontend/`、データは`data/news.json`、設定は`config/`に置く。
 
 - AWSへのホスト・接続、X連携、外部アカウント操作、投稿・通知を追加しない。
-- `codex/chatgpt-sites`ではOwnerの2026-11-01の指示に限りChatGPT Sitesへの登録・所有者限定配備を扱う。共有範囲は広げない。Sites対応は`sites/README.md`を入口にする。
+- ChatGPT Sitesへの登録・配備は、依頼者の指示に基づき所有者限定で行う。共有範囲は広げない。Sites対応は`sites/README.md`を入口にする。
 - 画面の製品名はNewsVisualizationとし、元の製品名・ロゴ・アイコンを持ち込まない。
 - 公開ニュースの収集は`config/settings.json`の分野・方針・注目サイトを正本にする。
 - 採点は`config/scoring.json`。Wikipedia・GDELTは重み0で収集・採点を停止。報道60点・はてな10点・伸び10点・代替の検索とランキング20点（Google12、Yahoo4、ライブドア4）。最高100点。欠測分を再配分しない。実測値と照合根拠を保存する。

@@ -2,8 +2,9 @@
 
 ## ポートを変える
 
+プロジェクトのフォルダーでPowerShellを開き、実行します。
+
 ```powershell
-cd C:\dev\news-visualization
 .\start.ps1 -Port 8770
 ```
 

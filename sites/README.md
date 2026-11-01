@@ -1,6 +1,6 @@
-# ChatGPT Sites試行版
+# ChatGPT Sitesのセットアップ・保守
 
-作業ブランチは`codex/chatgpt-sites`。ローカル版の採点・収集処理と生成済み画面をそのまま使い、Pythonの配信処理をSitesのWorkerへ置き換えます。パッケージの追加取得は不要です。
+ローカル版の採点・収集処理と生成済み画面を使い、Pythonの配信処理をSitesのWorkerへ置き換えます。以下のコマンドはプロジェクトのフォルダーで実行してください。
 
 ローカルで配備準備・ニュース配信を行う場合はNode.js 22以降を用意し、`node --version`で確認してください。
 
@@ -39,7 +39,7 @@ node scripts/sites-preview.mjs
 
 ## ホスト先の構成
 
-- `.openai/hosting.json`はR2の`BUCKET`を宣言します。公式の登録結果を`project_id`へ保存済みです。同じ応答で確認したIDとオリジンを`sites/registered-site.json`の`projectId`・`origin`にも保存しています。
+- `.openai/hosting.json`はR2の`BUCKET`を宣言します。登録時に返されたIDを`project_id`、同じIDとオリジンを`sites/registered-site.json`の`projectId`・`origin`へ保存します。
 - `dist/server/index.js`が配備用のESモジュールです。画面のHTML・CSS・JavaScriptと初回データを含みます。ソース全体や`tmp/`を配信しません。
 - ニュースと設定はR2の`state.json`に保存します。保存済みデータを初回データより優先するため、画面を再配備してもデータは戻りません。
 - 既知用語はSitesの利用者ID別に保存します。
@@ -47,7 +47,7 @@ node scripts/sites-preview.mjs
 
 ## 閲覧・更新の制限
 
-この試行版は**所有者だけが利用する非公開Site専用**です。全パスの認証・認可をSitesの配信境界で実施します。ニュース更新はSitesが提供するサービスアクセスを使用します。更新APIに独自の公開認証機能はありません。
+このアプリのSites版は**所有者だけが利用する非公開Site専用**です。全パスの認証・認可をSitesの配信境界で実施します。ニュース更新はSitesが提供するサービスアクセスを使用します。更新APIに独自の公開認証機能はありません。
 
 第三者へ共有する前には、閲覧と設定・ニュースの変更権限を分けて実装・検証してください。現在のコードのまま公開範囲を広げないでください。認証情報はソース、JSON、ブラウザー、実行プロンプトへ保存しません。
 
@@ -64,13 +64,3 @@ node scripts/sites-preview.mjs
 設定の同期はCodexへの依頼に含めます。配信スクリプト自体に設定を同期する機能はありません。
 
 定期実行は、実Siteでサービスアクセスによる更新と読み戻しを確認してから設定します。ローカルフォルダーを使う実行ではPCとアプリが起動している必要があります。クラウド実行ではソース・Skill・必要な更新権限へ継続的にアクセスできる構成が別途必要です。
-
-## 現在の登録状況
-
-2026-11-01、所有者限定Siteとして登録・配備済みです。
-
-- project_id: `appgprj_6ae6b670053c8191a5fb9224535684b7`
-- origin: https://newsvisualization.kazufumi123.chatgpt.site
-- GET/HEADはSitesの認可境界に任せ、Origin・Sec-Fetch-Siteの拒否は更新系メソッドに適用します。
-- Pythonの再計算照合は浮動小数点だけ微小な丸め差を許容し、構造・整数・文字列は完全一致を要求します。ニュース内容と採点式は変更していません。
-- 定期実行は登録していません。
