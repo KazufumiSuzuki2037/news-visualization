@@ -48,7 +48,9 @@ function Information({news}:{news:Data}){
  if(['7','8','9'].includes(news.scoringConfig?.scoreVersion))return <section className="newsInformation"><h2>情報の集め方</h2><ol className="collectionSteps"><li>設定した分野の検索語でGoogleニュースRSSを検索。</li><li>注目サイトはサイト指定でも検索し、記事の本文・日時・出典を確認。</li><li>採点対象の公開指標を取得し、同じ出来事か照合。対象と配点は下の計算式に示します。</li></ol><p>通常記事は日本語、注目サイトは言語不問。登録サイトの全記事を巡回する方式ではありません。24時間／7日間は記事の公開日時で選びます。新しく公開された検証・解説記事も対象です。</p>
  <div className="collectionSites">{arr(news.collectionSites).map(site=><a key={site.siteId} href={safeExternalUrl(site.url)} target="_blank" rel="noopener noreferrer">{site.name}</a>)}</div>
  <AttentionGuide config={news.scoringConfig} collection={news.attentionCollection}/>
- <dl><dt>調査基準時刻</dt><dd>{time(news.referenceAt)}</dd><dt>生成完了</dt><dd>{time(news.generatedAt)}</dd><dt>表示件数</dt><dd>{news.topics.length}件</dd></dl>
+ <dl><dt>調査基準時刻</dt><dd>{time(news.referenceAt)}</dd><dt>実行</dt><dd>{time(news.executionStartedAt)} 〜 {time(news.executionCompletedAt)}</dd><dt>報道集計</dt><dd>{time(news.reportingWindowStart)} 〜 {time(news.reportingWindowEnd)}</dd><dt>表示件数</dt><dd>{news.topics.length}件</dd><dt>表示対象外</dt><dd>{news.excludedTopicCount??0}件</dd></dl>
+ {news.displayConfig&&<p>各分野の上位{news.displayConfig.minTopicsPerField}件を表示し、それ以降は話題度が{news.displayConfig.additionalThreshold}を超えたものを追加します。</p>}
+ {arr(news.fieldCoverage).some(field=>field.shortfall>0)&&<><h2>調査データの不足</h2><ul>{arr(news.fieldCoverage).filter(field=>field.shortfall>0).map(field=><li key={field.field}>{field.field}：あと{field.shortfall}件</li>)}</ul></>}
  {news.limitations?.length>0&&<><h2>今回の調査の制約</h2><ul>{news.limitations.map((s:string,i:number)=><li key={i}>{s}</li>)}</ul></>}
  </section>;
  return <section className="newsInformation"><h2>情報の集め方</h2><ol className="collectionSteps"><li>設定した収集分野に沿って、GoogleニュースRSSと公開記事を調査します。</li><li>記事本文・公開日時・原典を確認し、同じ出来事と転載を整理します。</li><li>はてなブックマークの現在累計と、独立した報道元の数・伸びから話題度を計算します。</li></ol>
