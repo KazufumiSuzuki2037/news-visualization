@@ -1,7 +1,7 @@
 Third-party software bundled in web/assets/
 
 React 18.3.1, React DOM 18.3.1, Scheduler 0.23.2
-Vite 8.3.0 (module-preload helper)
+Vite 8.3.5 (module-preload helper)
 License: MIT
 
 MIT License

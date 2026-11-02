@@ -13,14 +13,17 @@
 ## 画面の編集
 
 1. `frontend/`を編集する。
-2. 導入済みのVite・React・React DOMを持つ`node_modules`を指定してビルドする。
+2. Node.js 22.12以降とnpmを用意する。依存取得はOwnerの許可後に行う。
+3. `package-lock.json`に固定された依存をプロジェクト内へ導入し、ビルドする。
 
 ```powershell
-$env:NV_NODE_MODULES = '導入済みのnode_modulesの絶対パス'
-node scripts/build.mjs
+npm ci
+npm run build
 ```
 
-ニュースや設定の更新には画面の再ビルドは不要です。追加の依存取得はこのコマンドでは行いません。
+ビルドはこのプロジェクトの`node_modules/`を使います。`npm run build`自体は依存を取得しません。ニュースや設定の更新には画面の再ビルドは不要です。
+
+`package.json`は直接依存の版、`package-lock.json`は間接依存・取得元・整合性ハッシュを記録します。依存更新時は両方を更新し、`npm ci`とビルドを確認してください。既知の脆弱性は`npm audit`で確認できます。
 
 ## テスト
 
@@ -41,6 +44,7 @@ node scripts/build-sites.mjs
 | ファイル | 用途 |
 | --- | --- |
 | `frontend/` | 画面の編集元 |
+| `package.json` / `package-lock.json` | Node.js依存の定義と固定版 |
 | `web/` | ビルド済みのHTML・JavaScript・CSS |
 | `data/news.json` | 24時間・7日間のニュースと採点結果 |
 | `data/preferences.json` | ローカル版の既知用語 |

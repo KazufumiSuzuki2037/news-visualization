@@ -1,0 +1,23 @@
+{
+  "name": "news-visualization",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local news visualization and owner-private Sites build",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "packageManager": "npm@10.9.9",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "build:sites": "node scripts/build-sites.mjs",
+    "test:sites": "node --test tests/sites.test.mjs"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "vite": "8.3.5"
+  }
+}
